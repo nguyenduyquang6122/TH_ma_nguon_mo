@@ -58,6 +58,13 @@ def create_repost():
     i2 = np.where(svF == minF)
     i3 = np.where(svF == maxF)
 
+    svBp = in_data[:,4]
+    svB = in_data[:,5]
+    svCp = in_data[:,6]
+    svC = in_data[:,7]
+    svDp = in_data[:,8]
+    svD = in_data[:,9]
+
     label_result.config(text="-Tổng sinh viên dự thi: "+f"{tongsv} sinh viên\n"
                         + "-Số sinh viên đạt: "+f"{sumDat} sinh viên\n"
                         + "-Số sinh viên trượt: "+f"{sumTruot} sinh viên\n" 
@@ -69,12 +76,15 @@ def create_repost():
                         + "-Lớp có nhiều điểm A nhất là: {0} có {1} sinh viên đạt điểm A\n".format(in_data[i1,0],maxA)
                         + "-Lớp có ít điểm F nhất là: {0} có {1} sinh viên đạt điểm F\n".format(in_data[i2,0],minF)
                         + "-Lớp có nhiều điểm F nhất là: {0} có {1} sinh viên đạt điểm F\n".format(in_data[i3,0],maxF))
-    
-    plot_frame = Frame(w)
-    plot_frame.pack()
 
-    plt.plot(range(len(in_data[:, 3])), in_data[:, 3], 'r-', label="Diem A")
-    plt.plot(range(len(in_data[:, 2:5+1])), in_data[:, 2:5+1], 'g-', label="Diem B +")
+    plt.plot(range(len(svA)), svA, 'r-', label="Diem A")
+    plt.plot(range(len(svBp)), svBp, 'o-', label="Diem B+")
+    plt.plot(range(len(svB)), svB, 'y-', label="Diem B")
+    plt.plot(range(len(svCp)), svCp, 'g-', label="Diem C+")
+    plt.plot(range(len(svC)), svC, 'b-', label="Diem C")
+    plt.plot(range(len(svDp)), svDp, 'p-', label="Diem D+")
+    plt.plot(range(len(svD)), svD, 'm-', label="Diem D")
+    plt.plot(range(len(svF)), svF, 'k-', label="Diem F")
     plt.xlabel('Lớp')
     plt.ylabel('Số sv đạt điểm')
     plt.legend(loc='upper right')
@@ -96,39 +106,13 @@ frame_data.pack()
 button_cre = Button(w, text="Tạo báo cáo", command=create_repost)
 button_cre.pack()
 
-label_result = Label(w, text="", justify='left', font=('Helvetica',10, 'bold'))
-label_result.pack()
+frame_result = Frame(w)
+frame_result.pack()
+
+label_result = Label(frame_result, text="", justify='left', font=('Helvetica',10, 'bold'))
+label_result.pack(side=LEFT)
+
+plot_frame = Frame(frame_result)
+plot_frame.pack(side=LEFT)
 
 w.mainloop()
-
-# diemA = in_data[:,3]
-# diemBc = in_data[:,4]
-# diemF = in_data[:,10]
-# tongsvF = np.sum(diemF)
-# SoSvQuaMon = (1 - tongsvF/SUMSV)*100
-# print(f"So sinh vien truot mon la: {(tongsvF/SUMSV)*100}%")
-# print(f"Trung binh so sv qua mon la: {SoSvQuaMon}%")
-# print('Tong sv:',tongsv)
-# maxa = diemA.max()
-# i, = np.where(diemA == maxa)
-# print('lop co nhieu diem A la {0} co {1} sv dat diem A'.format(in_data[i,0],maxa))
-
-# #so sanh điểm A với B+
-# tongA = diemA.sum()
-# tongBc=diemBc.sum()
-# print('so sv diem A ',tongA)
-# print('so sv diem B+',tongBc)
-# if tongA <= tongBc:
-#     print('it sv diem A hon B+')
-# else:
-#     print('nhieu sv diem A hon B+')
-
-# # Hiển thị thông tin về số SV thi, số SV đạt và số SV trượt
-# # Lấy dữ liệu điểm từ DataFrame
-# diem_data = df.iloc[:, 2:16]
-# so_sv_thi = df.shape[0]
-# so_sv_dat = (diem_data != 'F').sum().sum()
-# so_sv_truot = so_sv_thi - so_sv_dat
-# print('Tổng số sinh viên đi thi: {0}'.format(so_sv_thi))
-# print('Tổng số sinh viên thi đạt: {0}'.format(so_sv_dat))
-# print('Tổng số sinh viên thi trượt: {0}'.format(so_sv_truot))
