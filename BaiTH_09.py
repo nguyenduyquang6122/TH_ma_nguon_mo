@@ -38,10 +38,10 @@ def improve_img():
         label_text_re.config(text="Hãy chọn ảnh")
 
 def save_img():
-    if img_output is not None:
+    if img is not None:
         file_path = filedialog.asksaveasfilename(defaultextension=[".jpeg", ".png"],filetypes=[("JPEG", "*.jpeg"), ("PNG", "*.png")])
         if file_path:
-            img_output = cv2.imwrite(file_path)
+            cv2.imwrite(file_path, img_output)
             print("Lưu ảnh thành công")
     else:
         label_text_re.config(text="Không có ảnh để lưu")

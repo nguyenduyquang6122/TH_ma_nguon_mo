@@ -98,6 +98,9 @@ button_2.pack(anchor='w')
 button_lv1 = Button(frame_button, text="Mịn nhẹ", command=lv1)
 button_lv2 = Button(frame_button, text="Mịn vừa", command=lv2)
 
+frame_button = Frame(frame_input)
+frame_button.pack(side=LEFT)
+
 entry = Entry(frame_button)
 button_entry = Button(frame_button, text="Xác nhận", command=entry_button)
 
